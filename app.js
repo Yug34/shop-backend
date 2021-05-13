@@ -4,12 +4,11 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+// var indexRouter = require('./routes/index');
 var catalogRouter = require('./routes/catalog');
 
 let mongoose = require("mongoose");
-let mongoDB = "mongodb+srv://verti:yug123@cluster0.yisxz.mongodb.net/kabra-shop?retryWrites=true&w=majority";
+let mongoDB = "mongodb+srv://verti:yug123@cluster0.o2mor.mongodb.net/kabra-shop?retryWrites=true&w=majority";
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 let db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
@@ -26,9 +25,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/catalog', catalogRouter);
+// app.use('/', indexRouter);
+app.use('/list_products', catalogRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

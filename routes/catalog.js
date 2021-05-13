@@ -4,7 +4,7 @@ var router = express.Router();
 // Require controller modules.
 var productController = require("../controllers/productController");
 
-router.get("/", productController.index);
+router.get("/", productController.list_products);
 
 // router.get('/:id', function(req, res, next) {
 //     res.json({title: req.params.id});
