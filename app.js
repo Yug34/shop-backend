@@ -8,6 +8,7 @@ var logger = require('morgan');
 var catalogRouter = require('./routes/catalog');
 
 let mongoose = require("mongoose");
+const cors = require("cors");
 let mongoDB = "mongodb+srv://verti:yug123@cluster0.o2mor.mongodb.net/kabra-shop?retryWrites=true&w=majority";
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 let db = mongoose.connection;
@@ -20,6 +21,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 app.use(logger('dev'));
+app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -43,5 +45,14 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+// app.use(
+//     cors({
+//       credentials: true,
+//       origin: true,
+//       methods: ["POST", "GET", "PUT", "DELETE", "OPTIONS"],
+//     })
+// );
+// app.set("trust proxy", 1);
 
 module.exports = app;
