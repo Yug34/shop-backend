@@ -6,8 +6,8 @@ var productController = require("../controllers/productController");
 
 router.get("/", productController.index);
 
-router.get('/:id', function(req, res, next) {
-    res.render('index', { title: req.params.id });
-});
+// router.get('/:id', function(req, res, next) {
+//     res.json({title: req.params.id});
+// });
 
 module.exports = router;
