@@ -11,6 +11,7 @@ exports.index = function(req, res, next) {
             }
             res.json({...products});
             console.log(products);
+            console.log(Product.countDocuments());
         });
 
 };

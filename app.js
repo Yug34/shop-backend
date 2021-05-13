@@ -9,7 +9,7 @@ var usersRouter = require('./routes/users');
 var catalogRouter = require('./routes/catalog');
 
 let mongoose = require("mongoose");
-let mongoDB = "mongodb+srv://verti:yug123@cluster0.yisxz.mongodb.net/local_library?retryWrites=true&w=majority";
+let mongoDB = "mongodb+srv://verti:yug123@cluster0.yisxz.mongodb.net/kabra-shop?retryWrites=true&w=majority";
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 let db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
