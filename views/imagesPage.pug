@@ -1,0 +1,35 @@
+doctype html
+html(lang='en')
+    head
+        meta(charset='UTF-8')
+        meta(name='viewport' content='width=device-width, initial-scale=1.0')
+        title Image Uploading
+    body
+        h1 To Upload Image on mongoDB
+        hr
+        div
+            form(action='/' method='POST' enctype='multipart/form-data')
+                div
+                    label(for='name') Image Title
+                    input#name(type='text' placeholder='Name' value='' name='name' required='')
+                div
+                    label(for='desc') Image Description
+                    textarea#desc(name='pesc' value='' rows='2' placeholder='Description' required='')
+                div
+                    label(for='image') Upload Image
+                    input#image(type='file' name='image' value='' required='')
+                div
+                    button(type='submit') Submit
+        hr
+        h1 Uploaded Images
+        div
+            if items !== null
+                each item in items
+                    div
+                        div
+                            img(src=`data:image/${item.image.contentType};base64,${item.image.data.toString('base64')}`)
+                            div
+                                h5 #{item.name}
+                                p #{item.quantity}
+            else
+                p No items!

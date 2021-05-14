@@ -7,9 +7,11 @@ var multer  = require('multer')
 
 // var indexRouter = require('./routes/index');
 var catalogRouter = require('./routes/catalog');
+const Product = require("./models/product");
 
 let mongoose = require("mongoose");
 const cors = require("cors");
+const fs = require("fs");
 let mongoDB = "mongodb+srv://verti:yug123@cluster0.o2mor.mongodb.net/kabra-shop?retryWrites=true&w=majority";
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 let db = mongoose.connection;
@@ -29,7 +31,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // app.use('/', indexRouter);
-app.use('/list_products', catalogRouter);
+app.use('/catalog', catalogRouter);
 
 var storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -41,6 +43,44 @@ var storage = multer.diskStorage({
 });
 
 var upload = multer({ storage: storage });
+
+app.get('/', (req, res) => {
+  Product.find({}, (err, items) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send(`An error occurred: ${err}`);
+    }
+    else {
+      res.render('imagesPage', { items: items });
+    }
+  });
+});
+
+app.post('/', upload.single('image'), (req, res, next) => {
+
+  var obj = {
+    // name: {type: String, required: true},
+    // description: {type: String, required: true},
+    // quantity: {type: Number, required: true},
+    // price: {type: Number, required: true},
+    name: "name!",
+    description: "desc!",
+    quantity: 10,
+    price: 100,
+    image: {
+      data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+      contentType: 'image/png'
+    }
+  }
+  Product.create(obj, (err, item) => {
+    if (err) {
+      console.log(err);
+    }
+    else {
+      item.save();
+    }
+  });
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
