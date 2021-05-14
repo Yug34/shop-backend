@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var multer  = require('multer')
 
 // var indexRouter = require('./routes/index');
 var catalogRouter = require('./routes/catalog');
@@ -29,6 +30,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // app.use('/', indexRouter);
 app.use('/list_products', catalogRouter);
+
+var storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads')
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.fieldname + '-' + Date.now())
+  }
+});
+
+var upload = multer({ storage: storage });
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
