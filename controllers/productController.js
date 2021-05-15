@@ -11,3 +11,14 @@ exports.list_products = function(req, res, next) {
         });
 
 };
+
+exports.product = function(req, res, next) {
+    Product.findById(req.params.id)
+        .exec((err, products) => {
+            if (err) {
+                return next(err);
+            }
+            res.jsonp(products);
+        });
+
+};

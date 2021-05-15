@@ -23,13 +23,12 @@ html(lang='en')
         hr
         h1 Uploaded Images
         div
-            if items !== null
-                each item in items
+            each item in items
+                div
                     div
+                        img(src=`data:image/${item.image.contentType};base64,${item.image.data.toString('base64')}`)
                         div
-                            img(src=`data:image/${item.image.contentType};base64,${item.image.data.toString('base64')}`)
-                            div
-                                h5 #{item.name}
-                                p #{item.quantity}
+                            h5 #{item.name}
+                            p #{item.quantity}
             else
                 p No items!
