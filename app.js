@@ -1,18 +1,16 @@
+require('dotenv').config();
 let createError = require("http-errors");
 let express = require("express");
 let path = require("path");
 let cookieParser = require("cookie-parser");
 let logger = require("morgan");
-let multer = require("multer");
+const cors = require("cors");
 
 let catalogRouter = require("./routes/catalog");
-const Product = require("./models/product");
 
 let mongoose = require("mongoose");
-const cors = require("cors");
-const fs = require("fs");
-let mongoDB =
-  "mongodb+srv://verti:yug123@cluster0.o2mor.mongodb.net/kabra-shop?retryWrites=true&w=majority";
+
+let mongoDB = process.env.MONGO_URI;
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 let db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
