@@ -1,4 +1,4 @@
-var Product = require('../models/product');
+let Product = require('../models/product');
 // var Cart = require('../models/cart');
 
 exports.list_products = function(req, res, next) {

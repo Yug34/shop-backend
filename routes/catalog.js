@@ -1,10 +1,12 @@
-var express = require("express");
-var router = express.Router();
+let express = require("express");
+let router = express.Router();
 const multer = require("multer");
-var productController = require("../controllers/productController");
+let productController = require("../controllers/productController");
 const Product = require("../models/product");
+const fs = require("fs");
+let path = require('path');
 
-var storage = multer.diskStorage({
+let storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'uploads')
     },
@@ -13,7 +15,7 @@ var storage = multer.diskStorage({
     }
 });
 
-var upload = multer({ storage: storage });
+let upload = multer({ storage: storage });
 
 router.get("/list", productController.list_products);
 
@@ -33,13 +35,13 @@ router.get('/display', (req, res) => {
 
 router.post('/display', upload.single('image'), (req, res, next) => {
 
-    var obj = {
-        name: "name!",
-        description: "desc!",
-        quantity: 10,
-        price: 100,
+    let obj = {
+        name: req.body.name,
+        description: req.body.description,
+        quantity: req.body.quantity,
+        price: req.body.price,
         image: {
-            data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+            data: fs.readFileSync(path.join(path.resolve(__dirname, "..") + '/uploads/' + req.file.filename)),
             contentType: 'image/png'
         }
     }
@@ -49,6 +51,7 @@ router.post('/display', upload.single('image'), (req, res, next) => {
         }
         else {
             item.save();
+            res.redirect("/catalog/display");
         }
     });
 });
