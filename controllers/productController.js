@@ -51,7 +51,7 @@ exports.display_post = function (req, res, next) {
       console.log(err);
     } else {
       item.save();
-      res.redirect("http://localhost:3001/");
+      res.redirect("http://localhost:3000/");
     }
   });
 }
