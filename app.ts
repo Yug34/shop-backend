@@ -1,3 +1,9 @@
+//TODO
+// resize uploaded images
+// Verification/validation of data
+// cart api
+// ts
+
 require('dotenv').config();
 let createError = require("http-errors");
 let express = require("express");

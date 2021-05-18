@@ -1,9 +1,9 @@
-let express = require("express");
-let router = express.Router();
+const express = require("express");
+const router = express.Router();
 const multer = require("multer");
-let productController = require("../controllers/productController");
+const productController = require("../controllers/productController");
 
-let storage = multer.diskStorage({
+const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "uploads");
   },
@@ -12,7 +12,7 @@ let storage = multer.diskStorage({
   },
 });
 
-let upload = multer({ storage: storage });
+const upload = multer({ storage: storage });
 
 router.get("/list", productController.list_products);
 
@@ -21,8 +21,5 @@ router.get("/list/:id", productController.product);
 router.get("/display", productController.display_get);
 
 router.post("/display", upload.single("image"), productController.display_post);
-
-//TODO:
-
 
 module.exports = router;
