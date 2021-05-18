@@ -40,7 +40,7 @@ exports.display_post = function (req, res, next) {
     image: {
       data: fs.readFileSync(
           path.join(
-              path.resolve(__dirname, "..") + "/uploads/" + req.file.filename
+              path.resolve(__dirname, "../..") + "/uploads/" + req.file.filename
           )
       ),
       contentType: "image/png",
@@ -51,7 +51,7 @@ exports.display_post = function (req, res, next) {
       console.log(err);
     } else {
       item.save();
-      res.redirect("http://localhost:3000/");
+      res.redirect("http://localhost:6969/");
     }
   });
 }

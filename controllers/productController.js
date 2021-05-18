@@ -1,4 +1,3 @@
-"use strict";
 var Product = require("../models/product");
 var fs = require("fs");
 var path = require("path");
@@ -37,8 +36,8 @@ exports.display_post = function (req, res, next) {
         price: req.body.price,
         image: {
             data: fs.readFileSync(path.join(path.resolve(__dirname, "..") + "/uploads/" + req.file.filename)),
-            contentType: "image/png",
-        },
+            contentType: "image/png"
+        }
     };
     Product.create(obj, function (err, item) {
         if (err) {
