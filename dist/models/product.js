@@ -1,7 +1,7 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var _a = require("mongoose"), Schema = _a.Schema, model = _a.model;
-module.exports = model("Product", new Schema({
+var mongoose = require("mongoose");
+var Schema = mongoose.Schema;
+var ProductSchema = new Schema({
     name: { type: String, required: true },
     description: { type: String, required: true },
     quantity: { type: Number, required: true },
@@ -10,4 +10,5 @@ module.exports = model("Product", new Schema({
         data: Buffer,
         contentType: String,
     },
-}));
+});
+module.exports = mongoose.model("Product", ProductSchema);
