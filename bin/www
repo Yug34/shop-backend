@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-let app = require('../app');
+let app = require('../dist/app');
 let debug = require('debug')('shop-backend:server');
 let http = require('http');
 

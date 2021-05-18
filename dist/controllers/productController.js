@@ -36,7 +36,7 @@ exports.display_post = function (req, res, next) {
         quantity: req.body.quantity,
         price: req.body.price,
         image: {
-            data: fs.readFileSync(path.join(path.resolve(__dirname, "..") + "/uploads/" + req.file.filename)),
+            data: fs.readFileSync(path.join(path.resolve(__dirname, "..") + "/../uploads/" + req.file.filename)),
             contentType: "image/png",
         },
     };
@@ -46,7 +46,7 @@ exports.display_post = function (req, res, next) {
         }
         else {
             item.save();
-            res.redirect("http://localhost:3000/");
+            res.redirect("http://localhost:6969/catalog/display");
         }
     });
 };
