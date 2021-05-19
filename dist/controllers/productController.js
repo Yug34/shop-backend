@@ -62,7 +62,8 @@ exports.display_post = [
                 if (err) {
                     return next(err);
                 }
-                res.render("imagesPage", { items: items, errors: errors.array() });
+                //res.render("imagesPage", { items: items, errors: errors.array() });
+		res.redirect("http://localhost:3000")
             });
             return;
         }
