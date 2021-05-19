@@ -44,6 +44,10 @@ exports.display_post = [
         .isDecimal({ min: 1 })
         .notEmpty()
         .escape(),
+    //TODO:
+    body("image", "Upload a png")
+	.notEmpty();
+
     function (req, res, next) {
         var errors = validationResult(req);
         var obj = {
