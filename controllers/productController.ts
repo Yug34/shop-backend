@@ -37,6 +37,8 @@ exports.product_delete = (req: Request, res: Response) => {
   Product.findByIdAndRemove({ _id: req.params.id }, (err: any) => {
     if(err) {
       console.log(err);
+    } else {
+      res.redirect("http://localhost:3000");
     }
   });
 }
