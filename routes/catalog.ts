@@ -22,4 +22,6 @@ router.get("/display", productController.display_get);
 
 router.post("/display", upload.single("image"), productController.display_post);
 
+router.delete("/display/:id", productController.product_delete);
+
 module.exports = router;

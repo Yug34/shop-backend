@@ -20,6 +20,16 @@ exports.product = function (req, res, next) {
         res.jsonp(products);
     });
 };
+exports.product_delete = function (req, res, next) {
+    Product.findByIdAndDelete(req.params.id, function (err) {
+        if (err) {
+            next(err);
+        }
+        else {
+            res.redirect("http://localhost:3000");
+        }
+    });
+};
 exports.display_get = function (req, res) {
     Product.find({}, function (err, items) {
         if (err) {
