@@ -12,3 +12,12 @@ cd shop-backend
 npm i
 npm run start
 ```
+
+Routes:
+GET requests:
+
+[http://localhost/catalog/list](http://localhost/catalog/list)
+[http://localhost/catalog/list/:id](http://localhost/catalog/list/60a626dfc2935a4ca0c56655)
+[http://localhost/catalog/display](http://localhost/catalog/display)
+
+And some other delete/update requests
