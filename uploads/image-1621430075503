@@ -1,7 +1,0 @@
-cd .. && rm -rf build && mkdir build && cd build && cmake .. && make -j 6
-
-cd .. && rm -rf build && mkdir build && cmake -B build -DCMAKE_INSTALL_PREFIX=/usr/local . && make -C build -j 6 && sudo make -C build install && cd /tmp && remoll macros/runexample.mac
-
-rm -rf build && mkdir build && cd build && cmake .. && make -j 6 && cd .. && build/remoll macros/runexample.mac
-
-mkdir -p build && cmake -B build -DCMAKE_INSTALL_PREFIX=/usr/local . && make -C build -j 6 && sudo make -C build install && cd /tmp && remoll macros/runexample.mac && cd ~/Desktop/remoll

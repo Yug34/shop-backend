@@ -1,8 +1,9 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var Product = require("../models/product");
 var fs = require("fs");
 var path = require("path");
-var _a = require("express-validator"), body = _a.body, validationResult = _a.validationResult;
+var express_validator_1 = require("express-validator");
 exports.list_products = function (req, res, next) {
     Product.find().exec(function (err, products) {
         if (err) {
@@ -31,25 +32,21 @@ exports.display_get = function (req, res) {
     });
 };
 exports.display_post = [
-    body("name", "Name of product must be specified")
+    express_validator_1.body("name", "Name of product must be specified")
         .trim()
         .isLength({ min: 1 })
         .escape(),
-    body("description", "Description is required").trim().isLength({ min: 1 }).escape(),
-    body("quantity", "Quantity must be specified")
-        .isDecimal({ min: 1 })
+    express_validator_1.body("description", "Description is required").trim().isLength({ min: 1 }).escape(),
+    express_validator_1.body("quantity", "Quantity must be specified")
+        .isInt({ min: 1 })
         .notEmpty()
         .escape(),
-    body("price", "Price must be specified")
-        .isDecimal({ min: 1 })
+    express_validator_1.body("price", "Price must be specified")
+        .isInt({ min: 1 })
         .notEmpty()
         .escape(),
-    //TODO:
-    body("image", "Upload a png")
-	.notEmpty();
-
     function (req, res, next) {
-        var errors = validationResult(req);
+        var errors = express_validator_1.validationResult(req);
         var obj = {
             name: req.body.name,
             description: req.body.description,
@@ -66,8 +63,7 @@ exports.display_post = [
                 if (err) {
                     return next(err);
                 }
-                //res.render("imagesPage", { items: items, errors: errors.array() });
-		res.redirect("http://localhost:3000")
+                res.render("imagesPage", { items: items, errors: errors.array() });
             });
             return;
         }

@@ -4,24 +4,25 @@
 // cart api
 // ts
 
+import {Application, Response, Request, NextFunction} from "express";
+
 require('dotenv').config();
-let createError = require("http-errors");
-let express = require("express");
-let path = require("path");
-let cookieParser = require("cookie-parser");
-let logger = require("morgan");
+const createError = require("http-errors");
+const express = require("express");
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
 const cors = require("cors");
 
-let catalogRouter = require("./routes/catalog");
+const catalogRouter = require("./routes/catalog");
 
-let mongoose = require("mongoose");
-
-let mongoDB = process.env.MONGO_URI;
+const mongoose = require("mongoose");
+const mongoDB = process.env.MONGO_URI;
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
-let db = mongoose.connection;
+const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
-let app = express();
+const app: Application = express();
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -36,17 +37,17 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/catalog", catalogRouter);
 
-app.get("/", (req, res) => {
+app.get("/", (req: Request, res: Response) => {
   res.redirect("/catalog/list");
 });
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
+app.use((req: Request, res: Response, next: NextFunction) => {
   next(createError(404));
 });
 
 // error handler
-app.use(function (err, req, res, next) {
+app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};
@@ -55,14 +56,5 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render("error");
 });
-
-// app.use(
-//     cors({
-//       credentials: true,
-//       origin: true,
-//       methods: ["POST", "GET", "PUT", "DELETE", "OPTIONS"],
-//     })
-// );
-// app.set("trust proxy", 1);
 
 module.exports = app;

@@ -7,8 +7,8 @@ module.exports = model("Product", new Schema({
   price: { type: Number, required: true },
   image: {
     data: Buffer,
-    contentType: String,
-  },
+    contentType: String
+  }
 }));
 
 export {};

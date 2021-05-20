@@ -1,10 +1,16 @@
-let Product = require("../models/product");
+import {NextFunction, Request, Response} from "express";
+
+const Product = require("../models/product");
 const fs = require("fs");
-let path = require("path");
-const { body, validationResult } = require("express-validator");
+const path = require("path");
+import { body, validationResult } from "express-validator";
 
-exports.list_products = function (req, res, next) {
-  Product.find().exec((err, products) => {
+interface MulterRequest extends Request {
+  file: any;
+}
+
+exports.list_products = (req: Request, res: Response, next: NextFunction) => {
+  Product.find().exec((err: any, products:object[]) => {
     if (err) {
       return next(err);
     }
@@ -12,8 +18,8 @@ exports.list_products = function (req, res, next) {
   });
 };
 
-exports.product = function (req, res, next) {
-  Product.findById(req.params.id).exec((err, products) => {
+exports.product = (req: Request, res: Response, next: NextFunction) => {
+  Product.findById(req.params.id).exec((err: any, products:object[]) => {
     if (err) {
       return next(err);
     }
@@ -21,8 +27,8 @@ exports.product = function (req, res, next) {
   });
 };
 
-exports.display_get = function (req, res) {
-  Product.find({}, (err, items) => {
+exports.display_get = (req: Request, res: Response) => {
+  Product.find({}, (err: any, items:object[]) => {
     if (err) {
       console.log(err);
       res.status(500).send(`An error occurred: ${err}`);
@@ -39,19 +45,21 @@ exports.display_post = [
     .escape(),
   body("description", "Description is required").trim().isLength({ min: 1 }).escape(),
   body("quantity", "Quantity must be specified")
-    .isDecimal({ min: 1 })
+    .isInt({ min: 1})
     .notEmpty()
     .escape(),
   body("price", "Price must be specified")
-    .isDecimal({ min: 1 })
+    .isInt({ min: 1})
     .notEmpty()
     .escape(),
-  // body("image", "The image cannot be empty").notEmpty(),
 
-  (req, res, next) => {
+  // body("image", "The image cannot be empty").notEmpty(),
+  //TODO: resize image before storing
+
+  (req: Request, res: Response, next: NextFunction) => {
     const errors = validationResult(req);
 
-    let obj = {
+    let obj: object = {
       name: req.body.name,
       description: req.body.description,
       quantity: req.body.quantity,
@@ -59,7 +67,7 @@ exports.display_post = [
       image: {
         data: fs.readFileSync(
           path.join(
-            path.resolve(__dirname, "../..") + "/uploads/" + req.file.filename
+            path.resolve(__dirname, "../..") + "/uploads/" + (req as MulterRequest).file.filename
           )
         ),
         contentType: "image/png",
@@ -70,7 +78,7 @@ exports.display_post = [
       console.log(errors);
 
       // There are errors. Render form again with sanitized values and error messages.
-      Product.find().exec(function (err, items) {
+      Product.find().exec((err: any, items) => {
         if (err) {
           return next(err);
         }
@@ -81,7 +89,7 @@ exports.display_post = [
       return;
     }
 
-    Product.create(obj, (err, item) => {
+    Product.create(obj, (err: any, item) => {
       if (err) {
         console.log(err);
       } else {
