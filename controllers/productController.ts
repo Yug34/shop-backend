@@ -27,6 +27,20 @@ exports.product = (req: Request, res: Response, next: NextFunction) => {
   });
 };
 
+// exports.display_update = (req: Request, res: Response) => {
+//   Product.findByIdAndUpdate({ _id: req.params.id }, () => {
+//
+//   });
+// }
+
+exports.product_delete = (req: Request, res: Response) => {
+  Product.findByIdAndRemove({ _id: req.params.id }, (err: any) => {
+    if(err) {
+      console.log(err);
+    }
+  });
+}
+
 exports.display_get = (req: Request, res: Response) => {
   Product.find({}, (err: any, items:object[]) => {
     if (err) {
