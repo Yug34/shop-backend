@@ -10,7 +10,7 @@ Install dependencies
 ```sh
 cd shop-backend
 npm i
-npm run start
+npm start
 ```
 
 Routes:
