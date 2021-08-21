@@ -1,11 +1,13 @@
 # Shop-backend
 
+A little project I made to learn TypeScript, and Express.js, supports CRUD requests against a MongoDB database, using the Mongoose ORM.
+
 clone this repository
 ```sh
 git clone https://github.com/Yug34/shop-backend
 ```
 
-Install dependencies 
+Install dependencies and start
 
 ```sh
 cd shop-backend
